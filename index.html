@@ -156,6 +156,72 @@
         .agape .avatar {
             background: #eae5f5;
             color: #78679d;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .agape .avatar::before,
+        .agape .avatar::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff9;
+            transition: transform .45s ease;
+        }
+
+        .agape .avatar::before { top: -8px; left: -7px; }
+        .agape .avatar::after { right: -8px; bottom: -7px; width: 30px; height: 30px; }
+
+        .agape.is-sparkled .avatar::before { transform: translate(15px, 17px) scale(1.3); }
+        .agape.is-sparkled .avatar::after { transform: translate(-14px, -13px) scale(.8); }
+
+        .agape-surprise {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: -3px 0 16px;
+            padding: 12px 14px;
+            border: 1px solid #eee9f7;
+            border-radius: 12px;
+            background: #faf8fd;
+            color: #665b76;
+            font-size: 13px;
+            line-height: 1.5;
+            animation: reveal .2s ease-out;
+        }
+
+        .agape-surprise[hidden] { display: none; }
+        .surprise-emoji { font-size: 21px; }
+
+        .agape-actions { display: flex; gap: 10px; margin-bottom: 10px; }
+
+        .fun-button {
+            flex: 1;
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: #eee9f7;
+            color: #665b76;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform .2s, background .2s;
+        }
+
+        .fun-button:hover { transform: translateY(-2px); background: #e7e0f2; }
+        .fun-button:focus-visible { outline: 3px solid #83739c; outline-offset: 3px; }
+        .agape.is-sparkled .avatar { animation: avatar-bounce .45s ease; }
+
+        @keyframes avatar-bounce { 35% { transform: rotate(-8deg) scale(1.08); } 70% { transform: rotate(6deg) scale(.96); } }
+        @keyframes reveal { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
         }
 
         .kenneth .avatar {
@@ -217,6 +283,11 @@
 
         .profile-link:hover {
             background: #ece8f2;
+        }
+
+        .profile-link:focus-visible {
+            outline: 3px solid #83739c;
+            outline-offset: 3px;
         }
 
         footer {
@@ -288,7 +359,7 @@
 
             <div class="members">
 
-                <div class="member-card agape">
+                <article class="member-card agape">
 
                     <div class="member-info">
 
@@ -306,13 +377,23 @@
 
                     </div>
 
+                    <div class="agape-actions">
+                        <button class="fun-button" id="agapeSurprise" type="button" aria-controls="agapeSurpriseMessage">🎁 Surprise</button>
+                        <button class="fun-button" id="avatarPet" type="button">✨ Pet the avatar</button>
+                    </div>
+
+                    <div class="agape-surprise" id="agapeSurpriseMessage" role="status" aria-live="polite" hidden>
+                        <span class="surprise-emoji" aria-hidden="true">🎉</span>
+                        <span></span>
+                    </div>
+
                     <a href="agape.html" class="profile-link">
                         View Profile →
                     </a>
 
-                </div>
+                </article>
 
-                <div class="member-card kenneth">
+                <article class="member-card kenneth">
 
                     <div class="member-info">
 
@@ -334,9 +415,9 @@
                         View Profile →
                     </a>
 
-                </div>
+                </article>
 
-                <div class="member-card vian">
+                <article class="member-card vian">
 
                     <div class="member-info">
 
@@ -358,7 +439,7 @@
                         View Profile →
                     </a>
 
-                </div>
+                </article>
 
             </div>
 
@@ -369,6 +450,40 @@
         </footer>
 
     </div>
+
+    <script>
+        (() => {
+            const card = document.querySelector('.member-card.agape');
+            const surprise = document.querySelector('#agapeSurpriseMessage');
+            const messages = [
+                ['🐛', 'Bug hari ini: kamu terlalu keren untuk di-debug.'],
+                ['☕', 'Semoga harimu minim error dan maksimal camilan!'],
+                ['🚀', 'Project manager bilang: satu commit lagi, lalu istirahat (beneran).'],
+                ['🧠', 'Fun fact: komputer juga butuh istirahat. Kamu juga, ya!'],
+                ['✨', 'Achievement unlocked: berhasil sampai ke halaman utama portfolio!'],
+                ['🍜', 'Kode boleh spaghetti, makan malam jangan lupa yang beneran.']
+            ];
+
+            document.querySelector('#agapeSurprise').addEventListener('click', () => {
+                const [icon, text] = messages[Math.floor(Math.random() * messages.length)];
+                surprise.querySelector('.surprise-emoji').textContent = icon;
+                surprise.querySelector('span:last-child').textContent = text;
+                surprise.hidden = false;
+            });
+
+            const avatarButton = document.querySelector('#avatarPet');
+            avatarButton.addEventListener('click', () => {
+                card.classList.remove('is-sparkled');
+                void card.offsetWidth;
+                card.classList.add('is-sparkled');
+                avatarButton.textContent = '😺 Mrrp! Again?';
+                window.setTimeout(() => {
+                    card.classList.remove('is-sparkled');
+                    avatarButton.textContent = '✨ Pet the avatar';
+                }, 1100);
+            });
+        })();
+    </script>
 
 </body>
 </html>

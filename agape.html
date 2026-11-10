@@ -44,6 +44,15 @@
 			.eyebrow { color: var(--accent); font-size: .82rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
 			.hero h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: .98; margin: 12px 0; letter-spacing: -.055em; }
 			.hero p { color: var(--foreground-description); max-width: 560px; font-size: 1.05rem; line-height: 1.6; }
+			.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+			.action-button {
+				border: 0; border-radius: 999px; padding: 11px 16px; cursor: pointer;
+				font: inherit; font-size: .9rem; font-weight: 650; color: var(--foreground);
+				background: var(--primary); transition: transform .2s, filter .2s;
+			}
+			.action-button:hover { transform: translateY(-2px); filter: brightness(.97); }
+			.action-button:focus-visible, .pet:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+			.action-button.secondary { background: var(--background-page); }
 			.aliases { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 			.pill {
 				display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px;
@@ -72,6 +81,27 @@
 			.language-row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--tertiary); }
 			.language-row:last-child { border-bottom: 0; }
 			.level { color: var(--foreground-description); font-size: .85rem; }
+			.skill-bars { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 22px; margin-top: 22px; }
+			.skill-meter { min-width: 0; }
+			.skill-meter-heading { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 7px; font-size: .9rem; }
+			.skill-meter-heading span:last-child { color: var(--foreground-description); font-variant-numeric: tabular-nums; }
+			.skill-track { height: 9px; overflow: hidden; border-radius: 999px; background: var(--tertiary); }
+			.skill-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 50%, #a9a2ff)); transition: width 1s cubic-bezier(.2,.8,.2,1); }
+			.skill-fill.is-visible { width: var(--skill); }
+			.pet {
+				position: fixed; z-index: 8; right: 20px; bottom: 18px; width: 68px; height: 68px;
+				border: 0; border-radius: 22px; background: var(--secondary); box-shadow: 0 8px 28px #0002;
+				font-size: 2rem; cursor: pointer; animation: pet-bob 2.4s ease-in-out infinite;
+			}
+			.pet::after { content: 'pet me'; position: absolute; right: 0; bottom: 72px; padding: 5px 9px; border-radius: 999px; background: var(--secondary); color: var(--foreground-description); font-size: .72rem; white-space: nowrap; }
+			.pet.is-excited { animation: pet-pop .45s ease; }
+			.surprise-card { display: flex; align-items: center; gap: 14px; }
+			.surprise-emoji { font-size: 2rem; }
+			.surprise-card p { margin: 3px 0 0; }
+			#surpriseDialog { width: min(420px, calc(100% - 32px)); border: 0; border-radius: 22px; padding: 24px; color: var(--foreground); background: var(--secondary); box-shadow: 0 24px 80px #0004; }
+			#surpriseDialog::backdrop { background: #211c2b88; backdrop-filter: blur(4px); }
+			.dialog-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+			.dialog-close { border: 0; background: transparent; color: inherit; font-size: 1.4rem; cursor: pointer; }
 			.footer-note { margin-top: 34px; text-align: center; color: var(--foreground-description); font-size: .85rem; }
 			
 			@media (max-width: 420px) {
@@ -79,6 +109,16 @@
 				.hero h1 { font-size: 2.7rem; }
 				.section-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
 			}
+			@media (max-width: 620px) {
+				.hero { grid-template-columns: 1fr; }
+				.mascot { max-height: 190px; }
+				.skill-bars { grid-template-columns: 1fr; }
+				.skill-group { grid-template-columns: 1fr; gap: 5px; }
+				.pet { right: 12px; bottom: 12px; width: 58px; height: 58px; }
+			}
+			@keyframes pet-bob { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+			@keyframes pet-pop { 35% { transform: scale(1.22) rotate(12deg); } 70% { transform: scale(.92) rotate(-8deg); } }
+			@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 		</style>
 	</head>
 	<body>
@@ -102,6 +142,10 @@
 					<p>Mahasiswa Informatika yang tertarik pada software development, AI, dan teknologi yang bisa menyelesaikan masalah nyata. Saya juga menikmati sisi kreatif dari desain dan produksi multimedia.</p>
 					<div class="aliases">
 						<span class="pill">dimas</span><span class="pill">agape</span><span class="pill">dimsum</span>
+					</div>
+					<div class="hero-actions">
+						<button class="action-button" id="surpriseButton" type="button">🎁 Surprise me</button>
+						<button class="action-button secondary" id="sparkleButton" type="button">✨ Sprinkle some magic</button>
 					</div>
 					</div>
 					<img class="mascot" src="https://agapedimas.com/assets/mascot/hi.webp" alt="Ilustrasi avatar Agape Dimas sedang melambaikan tangan">
@@ -189,13 +233,64 @@
 						</div>
 					</div>
 					</div>
+					<div class="skill-bars" aria-label="Visualisasi skill berdasarkan tingkat familiaritas">
+						<div class="skill-meter"><div class="skill-meter-heading"><span>JavaScript</span><span>82%</span></div><div class="skill-track"><div class="skill-fill" style="--skill:82%"></div></div></div>
+						<div class="skill-meter"><div class="skill-meter-heading"><span>Java</span><span>76%</span></div><div class="skill-track"><div class="skill-fill" style="--skill:76%"></div></div></div>
+						<div class="skill-meter"><div class="skill-meter-heading"><span>C++</span><span>70%</span></div><div class="skill-track"><div class="skill-fill" style="--skill:70%"></div></div></div>
+						<div class="skill-meter"><div class="skill-meter-heading"><span>UI & visual design</span><span>72%</span></div><div class="skill-track"><div class="skill-fill" style="--skill:72%"></div></div></div>
+					</div>
 					<p class="footer-note">Daftar teknologi pemrograman merangkum hal-hal yang pernah saya gunakan atau pelajari; tingkat penguasaan tiap teknologi dapat berbeda.</p>
 				</section>
 				</div>
 			</div>
 			</section>
 		</section>
+		<dialog id="surpriseDialog" aria-labelledby="surpriseTitle">
+			<div class="dialog-top"><strong id="surpriseTitle">Pesan rahasia buat kamu</strong><button class="dialog-close" type="button" aria-label="Tutup">×</button></div>
+			<div class="surprise-card"><span class="surprise-emoji" aria-hidden="true">🎉</span><div><p id="surpriseMessage" aria-live="polite"></p></div></div>
+		</dialog>
+		<button class="pet" id="pet" type="button" aria-label="Klik Mochi si kucing untuk menyapanya">🐱</button>
 		<script>
+			(() => {
+				const surprises = [
+					['🧠', 'Bug itu cuma fitur yang belum selesai menerima kasih sayang.'],
+					['☕', 'Kamu tidak butuh kopi lagi. (Kata orang yang belum lihat backlog.)'],
+					['🐛', 'Ada 10 jenis orang: yang paham biner dan yang belum membaca ini.'],
+					['✨', 'Kamu keren. Bahkan CSS pun mau ikut-ikutan berkilau hari ini.'],
+					['🍜', 'Kode boleh spaghetti, yang penting makan malamnya bukan.'],
+					['🚀', 'Progress kecil tetap progress. Bahkan loading bar juga mulai dari 0%.']
+				];
+				const dialog = document.querySelector('#surpriseDialog');
+				const message = document.querySelector('#surpriseMessage');
+				const emoji = document.querySelector('.surprise-emoji');
+				document.querySelector('#surpriseButton').addEventListener('click', () => {
+					const [icon, joke] = surprises[Math.floor(Math.random() * surprises.length)];
+					emoji.textContent = icon;
+					message.textContent = joke;
+					dialog.showModal();
+				});
+				dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+				dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+				document.querySelector('#sparkleButton').addEventListener('click', () => {
+					const colors = ['#f6c7e7', '#c8ddff', '#fbe8a6', '#c8f0dc', '#d9ccff'];
+					document.documentElement.style.setProperty('--accent', colors[Math.floor(Math.random() * colors.length)]);
+				});
+				const pet = document.querySelector('#pet');
+				const petFaces = ['🐱', '😺', '😸', '😻', '😽'];
+				pet.addEventListener('click', () => {
+					pet.textContent = petFaces[Math.floor(Math.random() * petFaces.length)];
+					pet.classList.remove('is-excited');
+					void pet.offsetWidth;
+					pet.classList.add('is-excited');
+				});
+				const meters = document.querySelectorAll('.skill-fill');
+				if ('IntersectionObserver' in window) {
+					const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+						if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+					}), { threshold: 0.25 });
+					meters.forEach(meter => observer.observe(meter));
+				} else meters.forEach(meter => meter.classList.add('is-visible'));
+			})();
 		</script>
 	</body>
 </html>
