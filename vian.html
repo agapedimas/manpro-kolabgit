@@ -224,6 +224,126 @@
                 align-items: flex-start;
             }
         }
+
+        /* Surprise Feature */
+        .surprise-card {
+            background-color: #eee9f7;
+            grid-column: 1 / 3;
+            text-align: center;
+        }
+
+        .surprise-card h2 {
+            color: #78679d;
+        }
+
+        .surprise-button {
+            margin-top: 18px;
+            padding: 13px 25px;
+            border: none;
+            border-radius: 25px;
+            background-color: #8672aa;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .surprise-button:hover {
+            background-color: #6f5b96;
+            transform: translateY(-3px);
+        }
+
+        /* Popup */
+        .surprise-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(45, 37, 56, 0.45);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .surprise-modal.show {
+            display: flex;
+        }
+
+        .surprise-box {
+            position: relative;
+            background: #fffdfb;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px 28px;
+            border-radius: 24px;
+            text-align: center;
+            animation: popup 0.3s ease;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        @keyframes popup {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            border: none;
+            background: none;
+            color: #999;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .surprise-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .surprise-box h2 {
+            color: #78679d;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .surprise-box p {
+            color: #70677d;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .another-button {
+            margin-top: 22px;
+            padding: 11px 22px;
+            border: none;
+            border-radius: 20px;
+            background: #eae5f8;
+            color: #66577e;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .another-button:hover {
+            background: #dcd3ef;
+        }
+
+        @media (max-width: 550px) {
+            .surprise-card {
+                grid-column: auto;
+            }
+        }
+
     </style>
 </head>
 
@@ -320,6 +440,51 @@
 
             </section>
 
+            <section class="card surprise-card">
+
+                <h2>A Little Surprise :D</h2>
+
+                <p>
+                    Feeling bored? Click the button!
+                </p>
+
+                <button class="surprise-button" id="surpriseButton">
+                    🎁 Surprise Me!
+                </button>
+
+            </section>
+            </main>
+
+            <!-- Surprise Popup -->
+            <div class="surprise-modal" id="surpriseModal">
+
+                <div class="surprise-box">
+
+                    <button class="close-button" id="closeButton">
+                        &times;
+                    </button>
+
+                    <div class="surprise-icon" id="surpriseIcon">
+                        🎁
+                    </div>
+
+                    <h2 id="surpriseTitle">
+                        Ready for a surprise?
+                    </h2>
+
+                    <p id="surpriseMessage">
+                        Let's see what you get!
+                    </p>
+
+                    <button class="another-button" id="anotherButton">
+                        ✨ Another Surprise
+                    </button>
+
+                </div>
+
+            </div>
+
+
         </main>
 
         <footer>
@@ -328,5 +493,93 @@
 
     </div>
 
+    <script>
+
+    const surprises = [
+        {
+            icon: "🎹",
+            title: "Piano Break!",
+            message: "One more song won't hurt!"
+        },
+        {
+            icon: "🎮",
+            title: "Achievement Unlocked!",
+            message: "You survived another day of assignments."
+        },
+        {
+            icon: "☕",
+            title: "Friendly Reminder",
+            message: "Don't forget to drink some water."
+        },
+        {
+            icon: "🌱",
+            title: "Keep Growing!",
+            message: "Small progress still counts."
+        },
+        {
+            icon: "🐱",
+            title: "Important Announcement",
+            message: "A random cat has officially approved your decision to take a break."
+        },
+        {
+            icon: "✨",
+            title: "Secret Message",
+            message: "Congratulations! You found absolutely nothing useful."
+        }
+    ];
+
+    const surpriseButton = document.getElementById("surpriseButton");
+    const surpriseModal = document.getElementById("surpriseModal");
+    const closeButton = document.getElementById("closeButton");
+    const anotherButton = document.getElementById("anotherButton");
+
+    const surpriseIcon = document.getElementById("surpriseIcon");
+    const surpriseTitle = document.getElementById("surpriseTitle");
+    const surpriseMessage = document.getElementById("surpriseMessage");
+
+    let lastIndex = -1;
+
+    function showSurprise() {
+
+        let randomIndex;
+
+        do {
+            randomIndex = Math.floor(Math.random() * surprises.length);
+        } while (randomIndex === lastIndex);
+
+        lastIndex = randomIndex;
+
+        const selected = surprises[randomIndex];
+
+        surpriseIcon.textContent = selected.icon;
+        surpriseTitle.textContent = selected.title;
+        surpriseMessage.textContent = selected.message;
+
+        surpriseModal.classList.add("show");
+    }
+
+    function closeSurprise() {
+        surpriseModal.classList.remove("show");
+    }
+
+    surpriseButton.addEventListener("click", showSurprise);
+
+    anotherButton.addEventListener("click", showSurprise);
+
+    closeButton.addEventListener("click", closeSurprise);
+
+    surpriseModal.addEventListener("click", function(event) {
+        if (event.target === surpriseModal) {
+            closeSurprise();
+        }
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSurprise();
+        }
+    });
+
+    </script>
 </body>
 </html>
