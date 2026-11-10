@@ -191,6 +191,39 @@
                 grid-column: auto;
             }
         }
+
+        .activity-card {
+            background-color: #e8edf5;
+            grid-column: 1 / 3;
+        }
+
+        .activity-card h2 {
+            color: #647b9b;
+        }
+
+        .activity-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .activity-content img {
+            width: 150px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 550px) {
+            .activity-card {
+                grid-column: auto;
+            }
+
+            .activity-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 
@@ -263,6 +296,28 @@
                     <span class="skill">JavaScript</span>
                     <span class="skill">Git & GitHub</span>
                 </div>
+            </section>
+
+            <section class="card activity-card">
+
+                <h2>Recent Activities</h2>
+
+                <div class="activity-content">
+
+                    <img src="assets/piano.gif"
+                        alt="Playing Piano">
+
+                    <div>
+                        <h3>Playing Piano</h3>
+
+                        <p>
+                            Recently, I have been practicing piano
+                            and learning new songs in my free time.
+                        </p>
+                    </div>
+
+                </div>
+
             </section>
 
         </main>
