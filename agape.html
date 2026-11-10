@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id" theme="light" accent="blue">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+		<meta name="theme-color" content="#ffffff" ad-theme-color>
+		<meta name="description" content="Profil Agape Dimas — programmer, mahasiswa Informatika, dan creative technologist.">
+		<title>Agape Dimas — Profile</title>
+		<link rel="icon" href="https://assets.agapedimas.com/icon_logo.ico">
+
+		<!-- Required Agape Dimas UI assets -->
+		<link rel="stylesheet" href="https://assets.agapedimas.com/ui/v3/style.css">
+		<script src="https://cdn.jsdelivr.net/npm/context-filter-polyfill/dist/index.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://assets.agapedimas.com/ui/v3/head.js"></script>
+		<script src="https://assets.agapedimas.com/ui/v3/components.js"></script>
+		<script src="https://assets.agapedimas.com/ui/v3/style.js"></script>
+		<script src="https://assets.agapedimas.com/ui/v3/events.js"></script>
+
+		<style>
+			:root { --padding: 28px; }
+			html, body { min-height: 100%; }
+			body { overflow: auto; background: var(--background-page); }
+			.root {
+				position: relative; min-height: 100vh; height: auto; overflow: visible;
+				grid-template-columns: 0 minmax(0, 1fr);
+			}
+			.root .main { min-width: 0; overflow: visible; }
+			.activity { min-height: 100vh; height: auto; overflow: visible; }
+			.activity > .header {
+				position: sticky; top: 0; z-index: 5; padding: 20px 34px;
+				background: color-mix(in srgb, var(--background-page) 88%, transparent);
+				backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+			}
+			.activity > .content {
+				height: auto; overflow: visible; padding: 24px 34px 60px;
+				max-width: 1120px; margin: 0 auto;
+			}
+			.hero {
+				display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(210px, .7fr);
+				align-items: center; gap: 24px; min-height: 300px; padding: 34px;
+				border-radius: 24px; background: var(--secondary); overflow: hidden;
+			}
+			.eyebrow { color: var(--accent); font-size: .82rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+			.hero h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: .98; margin: 12px 0; letter-spacing: -.055em; }
+			.hero p { color: var(--foreground-description); max-width: 560px; font-size: 1.05rem; line-height: 1.6; }
+			.aliases { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+			.pill {
+				display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px;
+				background: var(--primary); font-size: .85rem;
+			}
+			.mascot { width: 100%; max-height: 310px; object-fit: contain; object-position: center bottom; align-self: end; }
+			.section { margin-top: 34px; }
+			.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+			.section-heading h2 { font-size: 1.35rem; margin: 0; }
+			.section-heading span { color: var(--foreground-description); font-size: .9rem; }
+			.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+			.info-card {
+				background: var(--secondary); border-radius: 18px;
+				padding: 20px; min-width: 0;
+			}
+			.info-card h3 { margin: 0 0 12px; font-size: 1rem; }
+			.info-card p { color: var(--foreground-description); line-height: 1.55; margin: 0; }
+			.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+			.tag {
+				background: var(--primary); border-radius: 9px;
+				padding: 7px 10px; font-size: .88rem;
+			}
+			.skill-group { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; }
+			.skill-group + .skill-group { margin-top: 18px; }
+			.skill-label { color: var(--foreground-description); font-size: .9rem; padding-top: 6px; }
+			.language-row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--tertiary); }
+			.language-row:last-child { border-bottom: 0; }
+			.level { color: var(--foreground-description); font-size: .85rem; }
+			.footer-note { margin-top: 34px; text-align: center; color: var(--foreground-description); font-size: .85rem; }
+			
+			@media (max-width: 420px) {
+				.hero { padding: 22px; }
+				.hero h1 { font-size: 2.7rem; }
+				.section-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+			}
+		</style>
+	</head>
+	<body>
+		<header class="titlebar">
+			<img class="icon" src="https://assets.agapedimas.com/icon_logo.ico" alt="">
+			<span class="name">Agape Dimas</span>
+		</header>
+
+		<section class="root">
+			<section class="main">
+			<div class="activity" id="Activity_Main">
+				<div class="header">
+				<div class="buttons"></div>
+				<div class="title" ad-activitytitle="Profile"></div>
+				</div>
+				<div class="content">
+				<section class="hero" id="about">
+					<div>
+					<div class="eyebrow">Hello, it's me</div>
+					<h1>Agape<br>Dimas.</h1>
+					<p>Mahasiswa Informatika yang tertarik pada software development, AI, dan teknologi yang bisa menyelesaikan masalah nyata. Saya juga menikmati sisi kreatif dari desain dan produksi multimedia.</p>
+					<div class="aliases">
+						<span class="pill">dimas</span><span class="pill">agape</span><span class="pill">dimsum</span>
+					</div>
+					</div>
+					<img class="mascot" src="https://agapedimas.com/assets/mascot/hi.webp" alt="Ilustrasi avatar Agape Dimas sedang melambaikan tangan">
+				</section>
+
+				<section class="section" id="interests">
+					<div class="section-heading"><h2>Minat & Hobi</h2><span>Things I enjoy working on</span></div>
+					<div class="cards">
+					<article class="info-card">
+						<h3>Software Development</h3>
+						<p>Membangun aplikasi, web, tools, dan sistem yang fungsional. Senang mengeksplorasi bagaimana sebuah produk dirancang dari sisi teknis maupun pengalaman pengguna.</p>
+					</article>
+					<article class="info-card">
+						<h3>AI & Problem Solving</h3>
+						<p>Tertarik pada AI engineering, algoritma, dan pendekatan komputasional untuk menyelesaikan persoalan.</p>
+					</article>
+					<article class="info-card">
+						<h3>UI/UX & Visual Design</h3>
+						<p>Menyusun antarmuka, membuat aset visual, dan memperhatikan detail presentasi agar informasi mudah dipahami.</p>
+					</article>
+					<article class="info-card">
+						<h3>Multimedia & Presentation</h3>
+						<p>Mengolah presentasi, video, audio, serta kebutuhan teknis multimedia untuk kegiatan dan acara.</p>
+					</article>
+					<article class="info-card">
+						<h3>IoT & Technology</h3>
+						<p>Eksplorasi integrasi perangkat lunak dengan perangkat fisik, sensor, dan sistem yang terhubung.</p>
+					</article>
+					<article class="info-card">
+						<h3>Experimenting</h3>
+						<p>Mencoba framework, tools, dan pendekatan baru untuk memahami cara kerja teknologi secara langsung.</p>
+					</article>
+					</div>
+				</section>
+
+				<section class="section" id="skills">
+					<div class="section-heading"><h2>Keahlian</h2><span>Tools, languages, and technologies</span></div>
+					<div class="info-card">
+					<div class="skill-group">
+						<div class="skill-label">Programming</div>
+						<div class="tag-list">
+							<span class="tag">JavaScript</span>
+							<span class="tag">Java</span>
+							<span class="tag">C++</span>
+							<span class="tag">C#</span>
+							<span class="tag">Node.js</span>
+							<span class="tag">Solidity</span>
+						</div>
+					</div>
+					<div class="skill-group">
+						<div class="skill-label">Frameworks & Tools</div>
+						<div class="tag-list">
+							<span class="tag">Node.js</span>
+							<span class="tag">Git</span>
+							<span class="tag">MySQL</span>
+							<span class="tag">Visual Studio</span>
+							<span class="tag">ChatGPT
+
+							</span>
+						</div>
+					</div>
+					<div class="skill-group">
+						<div class="skill-label">Creative</div>
+						<div class="tag-list">
+							<span class="tag">Microsoft PowerPoint</span>
+							<span class="tag">vMix</span>
+							<span class="tag">Adobe After Effects</span>
+							<span class="tag">Adobe Illustrator</span>
+							<span class="tag">Adobe Photoshop</span>
+							<span class="tag">Adobe Premiere Pro</span>
+							<span class="tag">FL Studio</span>
+						</div>
+					</div>
+					<div class="skill-group">
+						<div class="skill-label">Languages</div>
+						<div>
+							<div class="language-row">
+								<span>Bahasa Indonesia</span>
+								<span class="level">Native</span>
+							</div>
+							<div class="language-row">
+								<span>English</span>
+								<span class="level">Fluent</span>
+							</div>
+						</div>
+					</div>
+					</div>
+					<p class="footer-note">Daftar teknologi pemrograman merangkum hal-hal yang pernah saya gunakan atau pelajari; tingkat penguasaan tiap teknologi dapat berbeda.</p>
+				</section>
+				</div>
+			</div>
+			</section>
+		</section>
+		<script>
+		</script>
+	</body>
+</html>
