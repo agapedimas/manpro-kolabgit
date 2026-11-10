@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Vian T - Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f5f2;
+            color: #393543;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .navigation {
+            margin-bottom: 25px;
+        }
+
+        .navigation a {
+            color: #81758f;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .navigation a:hover {
+            color: #51436d;
+        }
+
+        .top-label {
+            color: #99919f;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .profile-header {
+            background-color: #eae5f8;
+            border-radius: 22px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 22px;
+        }
+
+        .avatar {
+            width: 135px;
+            height: 135px;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            flex: 0 0 135px;
+        }
+
+        .profile-info h1 {
+            font-size: 30px;
+            margin-bottom: 9px;
+            color: #393346;
+        }
+
+        .profile-info .npm {
+            color: #81758f;
+            font-size: 14px;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 8px 14px;
+            background-color: #dcd3ef;
+            color: #66577e;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .description {
+            color: #625b6d;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-top: 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .card {
+            padding: 27px;
+            border-radius: 20px;
+        }
+
+        .about-card {
+            background-color: #ffffff;
+        }
+
+        .hobbies-card {
+            background-color: #e1f0e9;
+        }
+
+        .skills-card {
+            background-color: #fbe9dc;
+            grid-column: 1 / 3;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            margin-bottom: 17px;
+        }
+
+        .about-card h2 {
+            color: #8a76a8;
+        }
+
+        .hobbies-card h2 {
+            color: #527b67;
+        }
+
+        .skills-card h2 {
+            color: #986b50;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #655e6b;
+        }
+
+        .hobby-list {
+            list-style: none;
+        }
+
+        .hobby-list li {
+            color: #526c60;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background-color: #fff8f2;
+            color: #765b4a;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #a19ba5;
+            font-size: 12px;
+        }
+
+        @media (max-width: 550px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 25px;
+            }
+
+            .profile-info h1 {
+                font-size: 25px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-card {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="navigation">
+            <a href="index.html">← Back to Home</a>
+        </div>
+
+        <p class="top-label">MY PERSONAL PAGE</p>
+
+        <header class="profile-header">
+
+            <img
+                src="assets/vian.jpeg"
+                alt="Michael Vian"
+                class="avatar"
+            >
+
+            <div class="profile-info">
+                <h1>Michael Vian T</h1>
+
+                <p class="npm">
+                    6182401037
+                </p>
+
+                <span class="tag">
+                    Informatics Student
+                </span>
+
+                <p class="description">
+                    A little space about me, my interests,
+                    and things I enjoy.
+                </p>
+            </div>
+
+        </header>
+
+        <main class="content-grid">
+
+            <section class="card about-card">
+                <h2>About Me</h2>
+
+                <p>
+                    Hello! I'm Michael Vian, an Informatics
+                    student interested in technology, music,
+                    and exploring new things.
+                </p>
+            </section>
+
+            <section class="card hobbies-card">
+                <h2>Hobbies</h2>
+
+                <ul class="hobby-list">
+                    <li>🎹 Playing Piano</li>
+                    <li>🎮 Gaming</li>
+                    <li>🏋️ Exercising</li>
+                </ul>
+            </section>
+
+            <section class="card skills-card">
+                <h2>Things I've Learned</h2>
+
+                <div class="skill-list">
+                    <span class="skill">Java</span>
+                    <span class="skill">HTML</span>
+                    <span class="skill">CSS</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">Git & GitHub</span>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            Michael Vian T · 2026
+        </footer>
+
+    </div>
+
+</body>
+</html>

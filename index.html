@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Team | Our Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f5f2;
+            color: #393543;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 45px 25px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            color: #665b76;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 15px;
+        }
+
+        .nav-label {
+            color: #99919f;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .hero {
+            background: linear-gradient(
+                120deg,
+                #eae5f5,
+                #e8edf5
+            );
+            padding: 50px;
+            border-radius: 24px;
+            margin-bottom: 45px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            right: -35px;
+            bottom: -85px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: #ffffff;
+            color: #83739c;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            max-width: 600px;
+            color: #393346;
+            font-size: 38px;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 520px;
+            color: #70677d;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .section-heading {
+            margin-bottom: 23px;
+        }
+
+        .section-heading h2 {
+            color: #393346;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .section-heading p {
+            color: #99919f;
+            font-size: 14px;
+        }
+
+        .members {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .member-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 27px;
+            border: 1px solid #eeebef;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .member-card:first-child {
+            grid-column: 1 / 3;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(80, 65, 100, 0.08);
+        }
+
+        .member-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .agape .avatar {
+            background: #eae5f5;
+            color: #78679d;
+        }
+
+        .kenneth .avatar {
+            background: #e2efe8;
+            color: #527b67;
+        }
+
+        .vian .avatar {
+            background: #fae8db;
+            color: #986c51;
+        }
+
+        .member-info h3 {
+            font-size: 19px;
+            margin-bottom: 7px;
+            color: #403a49;
+        }
+
+        .member-info p {
+            color: #99919f;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .role {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+
+        .agape .role {
+            background: #eee9f7;
+            color: #78679d;
+        }
+
+        .kenneth .role {
+            background: #e2efe8;
+            color: #527b67;
+        }
+
+        .vian .role {
+            background: #fae8db;
+            color: #986c51;
+        }
+
+        .profile-link {
+            display: block;
+            text-decoration: none;
+            color: #665b76;
+            background: #f7f6f9;
+            text-align: center;
+            padding: 11px;
+            border-radius: 10px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .profile-link:hover {
+            background: #ece8f2;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e6e2e7;
+            text-align: center;
+            color: #a19ba5;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 18px;
+            }
+
+            .hero {
+                padding: 32px 25px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .members {
+                grid-template-columns: 1fr;
+            }
+
+            .member-card:first-child {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav class="navbar">
+            <div class="logo">SUPER TEAM</div>
+            <div class="nav-label">OUR LITTLE CORNER · 2026</div>
+        </nav>
+
+        <header class="hero">
+
+            <span class="hero-label">
+                MANAGEMENT PROJECT
+            </span>
+
+            <h1>
+                Meet the people behind the team.
+            </h1>
+
+            <p>
+                Three students, different interests,
+                and one shared journey. Get to know
+                the people behind our team!
+            </p>
+
+        </header>
+
+        <section>
+
+            <div class="section-heading">
+                <h2>The Members</h2>
+                <p>Get to know us a little better.</p>
+            </div>
+
+            <div class="members">
+
+                <div class="member-card agape">
+
+                    <div class="member-info">
+
+                        <div class="avatar">AD</div>
+
+                        <div>
+                            <h3>Agape Dimas</h3>
+
+                            <p>6182401062</p>
+
+                            <span class="role">
+                                Project Manager
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <a href="agape.html" class="profile-link">
+                        View Profile →
+                    </a>
+
+                </div>
+
+                <div class="member-card kenneth">
+
+                    <div class="member-info">
+
+                        <div class="avatar">KJ</div>
+
+                        <div>
+                            <h3>Kenneth Jonathan</h3>
+
+                            <p>6182401051</p>
+
+                            <span class="role">
+                                Team Member
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <a href="kenneth.html" class="profile-link">
+                        View Profile →
+                    </a>
+
+                </div>
+
+                <div class="member-card vian">
+
+                    <div class="member-info">
+
+                        <div class="avatar">MV</div>
+
+                        <div>
+                            <h3>Michael Vian T</h3>
+
+                            <p>6182401037</p>
+
+                            <span class="role">
+                                Team Member
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <a href="vian.html" class="profile-link">
+                        View Profile →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer>
+            © 2026 Super Team Portfolio · Manajemen Proyek
+        </footer>
+
+    </div>
+
+</body>
+</html>
